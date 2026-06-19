@@ -1,6 +1,6 @@
 import 'package:osmos_flutter_plugin/core/osmos_sdk.dart';
-import '../core/constants/app_constants.dart';
-import '../core/logger/app_logger.dart';
+import 'package:ads_sdk_integration/core/constants/app_constants.dart';
+import 'package:ads_sdk_integration/core/logger/app_logger.dart';
 
 /// Service responsible for bootstrapping and managing the lifespan of the third-party Osmos SDK.
 /// Handles initial configuration parameters and abstracts native SDK lifecycle issues.

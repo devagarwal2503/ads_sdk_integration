@@ -46,5 +46,16 @@ void main() {
       expect(failure1, equals(failure2));
       expect(failure1, isNot(equals(failure3)));
     });
+
+    test('EmptyAdFailure properties and equality', () {
+      const failure1 = EmptyAdFailure('No ads returned');
+      const failure2 = EmptyAdFailure('No ads returned');
+      const failure3 = EmptyAdFailure('Image elements missing');
+
+      expect(failure1.message, 'No ads returned');
+      expect(failure1.props, ['No ads returned']);
+      expect(failure1, equals(failure2));
+      expect(failure1, isNot(equals(failure3)));
+    });
   });
 }

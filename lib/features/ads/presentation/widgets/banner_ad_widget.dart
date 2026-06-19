@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../domain/entities/ad_entity.dart';
+import 'package:ads_sdk_integration/features/ads/domain/entities/ad_entity.dart';
 import 'ad_visibility_wrapper.dart';
 
 /// Interactive UI component that renders the network ad image within a specific lock-ratio box.

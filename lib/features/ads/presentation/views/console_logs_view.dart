@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../../../core/di/dependency_injection.dart';
-import '../../../../core/logger/app_logger.dart';
+import 'package:ads_sdk_integration/core/di/dependency_injection.dart';
+import 'package:ads_sdk_integration/core/logger/app_logger.dart';
 
 enum LogFilterLevel { all, info, debug, warning, error }
 

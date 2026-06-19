@@ -21,6 +21,10 @@ class SdkNotInitializedFailure extends Failure {
   const SdkNotInitializedFailure(super.message);
 }
 
+class EmptyAdFailure extends Failure {
+  const EmptyAdFailure(super.message);
+}
+
 class UnexpectedFailure extends Failure {
   const UnexpectedFailure(super.message);
 }

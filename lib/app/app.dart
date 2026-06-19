@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../core/di/dependency_injection.dart';
-import '../features/ads/presentation/bloc/ad_bloc.dart';
-import '../features/ads/presentation/pages/home_page.dart';
+import 'package:ads_sdk_integration/core/di/dependency_injection.dart';
+import 'package:ads_sdk_integration/features/ads/presentation/bloc/ad_bloc.dart';
+import 'package:ads_sdk_integration/features/ads/presentation/pages/home_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});

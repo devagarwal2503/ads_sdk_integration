@@ -1,6 +1,6 @@
-import '../../../../core/error/failures.dart';
-import '../../../../core/utils/result.dart';
-import '../repository/ads_repository.dart';
+import 'package:ads_sdk_integration/core/error/failures.dart';
+import 'package:ads_sdk_integration/core/utils/result.dart';
+import 'package:ads_sdk_integration/features/ads/domain/repository/ads_repository.dart';
 
 /// Request parameters required to record a click event.
 class TrackClickParams {

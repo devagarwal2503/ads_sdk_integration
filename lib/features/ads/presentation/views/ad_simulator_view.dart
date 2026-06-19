@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../bloc/ad_bloc.dart';
-import '../bloc/ad_event.dart';
-import '../bloc/ad_state.dart';
-import '../widgets/banner_ad_widget.dart';
-import '../widgets/load_button.dart';
-import '../widgets/loading_indicator.dart';
+import 'package:ads_sdk_integration/features/ads/presentation/bloc/ad_bloc.dart';
+import 'package:ads_sdk_integration/features/ads/presentation/bloc/ad_event.dart';
+import 'package:ads_sdk_integration/features/ads/presentation/bloc/ad_state.dart';
+import 'package:ads_sdk_integration/features/ads/presentation/widgets/banner_ad_widget.dart';
+import 'package:ads_sdk_integration/features/ads/presentation/widgets/load_button.dart';
+import 'package:ads_sdk_integration/features/ads/presentation/widgets/loading_indicator.dart';
 
 class AdSimulatorView extends StatelessWidget {
   const AdSimulatorView({super.key});

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../bloc/ad_bloc.dart';
-import '../bloc/ad_state.dart';
-import '../widgets/ad_status_card.dart';
+import 'package:ads_sdk_integration/features/ads/presentation/bloc/ad_bloc.dart';
+import 'package:ads_sdk_integration/features/ads/presentation/bloc/ad_state.dart';
+import 'package:ads_sdk_integration/features/ads/presentation/widgets/ad_status_card.dart';
 
 class AdVerifierView extends StatelessWidget {
   const AdVerifierView({super.key});

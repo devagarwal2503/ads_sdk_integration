@@ -173,6 +173,27 @@ void main() {
         expect(mockAnalytics.failureCount, 1);
       },
     );
+
+    test(
+      'should emit [AdLoading, AdEmpty] and log analytics when empty failure is returned',
+      () async {
+        mockFetchBannerAd.result = const FailureResult<AdEntity, Failure>(
+          EmptyAdFailure('Empty Error'),
+        );
+
+        final expectedStates = [
+          isA<AdLoading>(),
+          isA<AdEmpty>().having((s) => s.message, 'message', 'Empty Error'),
+        ];
+
+        expectLater(bloc.stream, emitsInOrder(expectedStates));
+
+        bloc.add(LoadBannerAd());
+
+        await until(() => mockAnalytics.failureCount > 0);
+        expect(mockAnalytics.failureCount, 1);
+      },
+    );
   });
 
   group('Tracking events', () {

@@ -1,8 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../analytics/analytics_service.dart';
-import '../../domain/usecases/fetch_banner_ad.dart';
-import '../../domain/usecases/track_click.dart';
-import '../../domain/usecases/track_impression.dart';
+import 'package:ads_sdk_integration/analytics/analytics_service.dart';
+import 'package:ads_sdk_integration/core/error/failures.dart';
+import 'package:ads_sdk_integration/features/ads/domain/usecases/fetch_banner_ad.dart';
+import 'package:ads_sdk_integration/features/ads/domain/usecases/track_click.dart';
+import 'package:ads_sdk_integration/features/ads/domain/usecases/track_impression.dart';
 import 'ad_event.dart';
 import 'ad_state.dart';
 
@@ -38,7 +39,11 @@ class AdBloc extends Bloc<AdEvent, AdState> {
       },
       (failure) {
         analytics.logFailure(failure.message);
-        emit(AdError(failure.message));
+        if (failure is EmptyAdFailure) {
+          emit(AdEmpty(message: failure.message));
+        } else {
+          emit(AdError(failure.message));
+        }
       },
     );
   }

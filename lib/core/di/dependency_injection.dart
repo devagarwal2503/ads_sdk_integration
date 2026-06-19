@@ -1,17 +1,17 @@
 import 'package:get_it/get_it.dart';
-import '../../analytics/analytics_service.dart';
-import '../../features/ads/data/datasource/ads_remote_datasource.dart';
-import '../../features/ads/data/datasource/ads_remote_datasource_impl.dart';
-import '../../features/ads/data/repository/ads_repository_impl.dart';
-import '../../features/ads/domain/repository/ads_repository.dart';
-import '../../features/ads/domain/usecases/fetch_banner_ad.dart';
-import '../../features/ads/domain/usecases/track_click.dart';
-import '../../features/ads/domain/usecases/track_impression.dart';
-import '../../features/ads/presentation/bloc/ad_bloc.dart';
-import '../../sdk/osmos_ad_service.dart';
-import '../../sdk/osmos_event_service.dart';
-import '../../sdk/osmos_initializer.dart';
-import '../logger/app_logger.dart';
+import 'package:ads_sdk_integration/analytics/analytics_service.dart';
+import 'package:ads_sdk_integration/features/ads/data/datasource/ads_remote_datasource.dart';
+import 'package:ads_sdk_integration/features/ads/data/datasource/ads_remote_datasource_impl.dart';
+import 'package:ads_sdk_integration/features/ads/data/repository/ads_repository_impl.dart';
+import 'package:ads_sdk_integration/features/ads/domain/repository/ads_repository.dart';
+import 'package:ads_sdk_integration/features/ads/domain/usecases/fetch_banner_ad.dart';
+import 'package:ads_sdk_integration/features/ads/domain/usecases/track_click.dart';
+import 'package:ads_sdk_integration/features/ads/domain/usecases/track_impression.dart';
+import 'package:ads_sdk_integration/features/ads/presentation/bloc/ad_bloc.dart';
+import 'package:ads_sdk_integration/sdk/osmos_ad_service.dart';
+import 'package:ads_sdk_integration/sdk/osmos_event_service.dart';
+import 'package:ads_sdk_integration/sdk/osmos_initializer.dart';
+import 'package:ads_sdk_integration/core/logger/app_logger.dart';
 
 final sl = GetIt.instance;
 

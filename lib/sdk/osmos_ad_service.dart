@@ -1,5 +1,5 @@
-import '../core/constants/api_constants.dart';
-import '../core/logger/app_logger.dart';
+import 'package:ads_sdk_integration/core/constants/api_constants.dart';
+import 'package:ads_sdk_integration/core/logger/app_logger.dart';
 import 'osmos_initializer.dart';
 
 /// Wrapper service for handling SDK ad retrieval operations.

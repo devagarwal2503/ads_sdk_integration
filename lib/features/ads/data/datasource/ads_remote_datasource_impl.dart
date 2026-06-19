@@ -1,5 +1,5 @@
-import '../../../../sdk/osmos_ad_service.dart';
-import '../models/ads_response_model.dart';
+import 'package:ads_sdk_integration/sdk/osmos_ad_service.dart';
+import 'package:ads_sdk_integration/features/ads/data/models/ads_response_model.dart';
 import 'ads_remote_datasource.dart';
 
 /// Implementation of [AdsRemoteDataSource] communicating directly with the SDK wrapper service.

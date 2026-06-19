@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import '../../domain/entities/ad_entity.dart';
+import 'package:ads_sdk_integration/features/ads/domain/entities/ad_entity.dart';
 
 abstract class AdState extends Equatable {
   const AdState();

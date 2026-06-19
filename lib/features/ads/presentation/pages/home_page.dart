@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../bloc/ad_bloc.dart';
-import '../bloc/ad_event.dart';
-import '../views/ad_simulator_view.dart';
-import '../views/ad_verifier_view.dart';
-import '../views/console_logs_view.dart';
+import 'package:ads_sdk_integration/features/ads/presentation/bloc/ad_bloc.dart';
+import 'package:ads_sdk_integration/features/ads/presentation/bloc/ad_event.dart';
+import 'package:ads_sdk_integration/features/ads/presentation/views/ad_simulator_view.dart';
+import 'package:ads_sdk_integration/features/ads/presentation/views/ad_verifier_view.dart';
+import 'package:ads_sdk_integration/features/ads/presentation/views/console_logs_view.dart';
 
 /// The root navigation shell of the advertisement integration demo.
 /// Coordinates the bottom navigation bar and switches views without destroying states.

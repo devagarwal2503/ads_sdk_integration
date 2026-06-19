@@ -1,5 +1,8 @@
+import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:osmos_flutter_plugin/core/osmos_sdk.dart';
+import 'package:osmos_flutter_plugin/utils/osmos_error_codes.dart';
 import 'package:ads_sdk_integration/core/error/failures.dart';
 import 'package:ads_sdk_integration/core/logger/app_logger.dart';
 import 'package:ads_sdk_integration/sdk/osmos_event_service.dart';
@@ -14,7 +17,7 @@ class MockAdsRemoteDataSource implements AdsRemoteDataSource {
   AdsResponseModel? fetchResult;
   @override
   Future<AdsResponseModel> fetchDisplayAds() async {
-    if (fetchResult == null) throw Exception('Network error');
+    if (fetchResult == null) throw Exception('Unexpected error');
     return fetchResult!;
   }
 }
@@ -169,7 +172,7 @@ void main() {
         final result = await repository.fetchBannerAd();
 
         expect(result.isFailure, true);
-        expect(result.failure, isA<ServerFailure>());
+        expect(result.failure, isA<EmptyAdFailure>());
       },
     );
 
@@ -183,6 +186,46 @@ void main() {
 
         expect(result.isFailure, true);
         expect(result.failure, isA<UnexpectedFailure>());
+      },
+    );
+
+    test(
+      'should return NetworkFailure when remote datasource throws network exception',
+      () async {
+        mockInitializer.isInitialized = true;
+
+        final customMockDS = MockNetworkExceptionDataSource();
+        final customRepo = AdsRepositoryImpl(
+          remoteDataSource: customMockDS,
+          osmosEventService: mockEventService,
+          osmosInitializer: mockInitializer,
+        );
+
+        final result = await customRepo.fetchBannerAd();
+
+        expect(result.isFailure, true);
+        expect(result.failure, isA<NetworkFailure>());
+        expect(result.failure.message, contains('connection'));
+      },
+    );
+
+    test(
+      'should return NetworkFailure when remote datasource throws OsmosException wrapping a native connection error',
+      () async {
+        mockInitializer.isInitialized = true;
+
+        final customMockDS = MockOsmosNetworkExceptionDataSource();
+        final customRepo = AdsRepositoryImpl(
+          remoteDataSource: customMockDS,
+          osmosEventService: mockEventService,
+          osmosInitializer: mockInitializer,
+        );
+
+        final result = await customRepo.fetchBannerAd();
+
+        expect(result.isFailure, true);
+        expect(result.failure, isA<NetworkFailure>());
+        expect(result.failure.message, contains('No internet connection'));
       },
     );
   });
@@ -218,4 +261,25 @@ void main() {
       },
     );
   });
+}
+
+class MockNetworkExceptionDataSource implements AdsRemoteDataSource {
+  @override
+  Future<AdsResponseModel> fetchDisplayAds() async {
+    throw const SocketException('Connection failed');
+  }
+}
+
+class MockOsmosNetworkExceptionDataSource implements AdsRemoteDataSource {
+  @override
+  Future<AdsResponseModel> fetchDisplayAds() async {
+    throw OsmosException(
+      errorCode: OsmosErrorCodes.fetchDisplayAdsError,
+      details: 'Unable to connect to host dev-hub.osmos.ai',
+      nativeError: PlatformException(
+        code: 'FETCH_DISPLAY_ADS_ERROR',
+        message: 'java.net.UnknownHostException: Unable to resolve host',
+      ),
+    );
+  }
 }

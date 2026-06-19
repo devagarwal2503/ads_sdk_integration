@@ -1,4 +1,4 @@
-import '../core/logger/app_logger.dart';
+import 'package:ads_sdk_integration/core/logger/app_logger.dart';
 
 class AnalyticsService {
   final AppLogger _logger;
