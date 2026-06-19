@@ -1,30 +1,83 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:ads_sdk_integration/main.dart';
+import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:ads_sdk_integration/app/app.dart';
+import 'package:ads_sdk_integration/core/di/dependency_injection.dart';
+import 'package:ads_sdk_integration/features/ads/data/models/ads_response_model.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  setUp(() async {
+    await GetIt.instance.reset();
+  });
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  testWidgets('Home page shows load ad button initially', (
+    WidgetTester tester,
+  ) async {
+    await initDI();
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+    await tester.pumpWidget(const App());
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text('Ready to Load Ad'), findsOneWidget);
+    expect(find.byType(ElevatedButton), findsOneWidget);
   });
+
+  test(
+    'AdsResponseModel parses both wrapped and unwrapped JSON structures',
+    () {
+      final rawUnwrapped = {
+        'ads': {
+          'banner_ads': [
+            {
+              'impression_tracking_url': 'https://t.o-s.io/events?uclid=123',
+              'click_tracking_url': 'https://t.o-s.io/click?uclid=456',
+              'elements': {
+                'value': 'https://image.url/1.png',
+                'destination_url': 'https://dest.url/1',
+              },
+            },
+          ],
+        },
+      };
+
+      final rawWrapped = {
+        'status': true,
+        'response': {
+          'code': 200,
+          'data': {
+            'ads': {
+              'banner_ads': [
+                {
+                  'impression_tracking_url':
+                      'https://t.o-s.io/events?uclid=123',
+                  'click_tracking_url': 'https://t.o-s.io/click?uclid=456',
+                  'elements': {
+                    'value': 'https://image.url/1.png',
+                    'destination_url': 'https://dest.url/1',
+                  },
+                },
+              ],
+            },
+          },
+        },
+      };
+
+      final unwrappedModel = AdsResponseModel.fromJson(rawUnwrapped);
+      final wrappedModel = AdsResponseModel.fromJson(rawWrapped);
+
+      expect(unwrappedModel.bannerAds.length, 1);
+      expect(
+        unwrappedModel.bannerAds.first.elements?.value,
+        'https://image.url/1.png',
+      );
+      expect(unwrappedModel.bannerAds.first.uclid, '456');
+
+      expect(wrappedModel.bannerAds.length, 1);
+      expect(
+        wrappedModel.bannerAds.first.elements?.value,
+        'https://image.url/1.png',
+      );
+      expect(wrappedModel.bannerAds.first.uclid, '456');
+    },
+  );
 }
